@@ -1,0 +1,97 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Categoria Details</f:facet>
+
+
+        <s:decorate id="descripcion" template="layout/display.xhtml">
+            <ui:define name="label">Descripcion</ui:define>
+            <h:outputText value="#{categoriaHome.instance.descripcion}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/CategoriaEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty categoriaFrom ? 'CategoriaList' : categoriaFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Dudas</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="dudasChildren">
+
+        <h:outputText value="There are no dudas associated with this categoria."
+                   rendered="#{empty categoriaHome.dudas}"/>
+
+        <rich:dataTable value="#{categoriaHome.dudas}"
+                       var="_duda"
+                  rendered="#{not empty categoriaHome.dudas}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="dudasTable">
+            <rich:column sortBy="#{_duda.id}">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_duda.id}"/>
+            </rich:column>
+            <rich:column sortBy="#{_duda.descripcion}">
+                <f:facet name="header">Descripcion</f:facet>
+                <h:outputText value="#{_duda.descripcion}"/>
+            </rich:column>
+            <rich:column sortBy="#{_duda.ejemploMalUso}">
+                <f:facet name="header">Ejemplo uso</f:facet>
+                <h:outputText value="#{_duda.ejemploMalUso}"/>
+            </rich:column>
+            <rich:column sortBy="#{_duda.fuente}">
+                <f:facet name="header">Fuente</f:facet>
+                <h:outputText value="#{_duda.fuente}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectduda"
+                     value="Select"
+                      view="/Duda.xhtml">
+                    <f:param name="dudaId"
+                            value="#{_duda.id}"/>
+                    <f:param name="dudaFrom" value="Categoria"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add duda"
+                view="/DudaEdit.xhtml">
+            <f:param name="categoriaId"
+                    value="#{categoriaHome.instance.id}"/>
+            <f:param name="dudaFrom" value="Categoria"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

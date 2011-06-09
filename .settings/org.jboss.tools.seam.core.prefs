@@ -1,0 +1,18 @@
+#Mon May 02 21:57:31 CEST 2011
+action.package=es.ual.scribene.session
+action.sources=/Scribene-ejb/ejbModule
+eclipse.preferences.version=1
+model.package=es.ual.scribene.model.entitu
+model.sources=/Scribene-ejb/ejbModule
+seam.ear.project=Scribene-ear
+seam.ejb.project=Scribene-ejb
+seam.project.connection.profile=Scribene PostgreSQL
+seam.project.deployment.type=ear
+seam.project.settings.version=1.1
+seam.project.web.root.folder=/Scribene/WebContent
+seam.runtime.name=jboss-seam-2.2.1.Final
+seam.settings.changed.by.user=true
+seam.test.creating=true
+seam.test.project=Scribene-test
+test.package=es.ual.scribene.test
+test.sources=/Scribene-test/test-src

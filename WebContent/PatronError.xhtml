@@ -1,0 +1,136 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Patron error Details</f:facet>
+
+        <s:decorate id="patron" template="layout/display.xhtml">
+            <ui:define name="label">Patron</ui:define>
+            <h:outputText value="#{patronErrorHome.instance.patron}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/PatronErrorEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty patronErrorFrom ? 'PatronErrorList' : patronErrorFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Errores</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="erroresChildren">
+
+        <h:outputText value="There are no errores associated with this patronError."
+                   rendered="#{empty patronErrorHome.errores}"/>
+
+        <rich:dataTable value="#{patronErrorHome.errores}"
+                       var="_error"
+                  rendered="#{not empty patronErrorHome.errores}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="erroresTable">
+            <rich:column sortBy="#{_error.id}">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_error.id}"/>
+            </rich:column>
+            <rich:column sortBy="#{_error.contexto}">
+                <f:facet name="header">Contexto</f:facet>
+                <h:outputText value="#{_error.contexto}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selecterror"
+                     value="Select"
+                      view="/Error.xhtml">
+                    <f:param name="errorId"
+                            value="#{_error.id}"/>
+                    <f:param name="errorFrom" value="PatronError"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add error"
+                view="/ErrorEdit.xhtml">
+            <f:param name="patronErrorPatron"
+                    value="#{patronErrorHome.instance.patron}"/>
+            <f:param name="errorFrom" value="PatronError"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Duda</h:panelGroup>
+        </f:facet>
+    <div class="association" id="dudaParent">
+
+        <h:outputText value="There is no duda associated with this patronError."
+                   rendered="#{patronErrorHome.instance.duda == null}"/>
+
+        <rich:dataTable var="_duda"
+                   value="#{patronErrorHome.instance.duda}"
+                rendered="#{patronErrorHome.instance.duda != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="dudaTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_duda.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Categoria id</f:facet>
+                <h:outputText value="#{_duda.categoria.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Descripcion</f:facet>
+                <h:outputText value="#{_duda.descripcion}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Ejemplo uso</f:facet>
+                <h:outputText value="#{_duda.ejemploMalUso}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Fuente</f:facet>
+                <h:outputText value="#{_duda.fuente}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewduda"
+                     value="View"
+                      view="/Duda.xhtml">
+                    <f:param name="dudaId"
+                           value="#{_duda.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>
