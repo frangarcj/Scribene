@@ -1,8 +1,8 @@
-#Mon May 02 21:57:31 CEST 2011
-action.package=es.ual.scribene.session
+#Sun Jul 17 23:34:29 CEST 2011
+action.package=es.ual.scribene.utils
 action.sources=/Scribene-ejb/ejbModule
 eclipse.preferences.version=1
-model.package=es.ual.scribene.model.entitu
+model.package=es.ual.scribene.utils
 model.sources=/Scribene-ejb/ejbModule
 seam.ear.project=Scribene-ear
 seam.ejb.project=Scribene-ejb

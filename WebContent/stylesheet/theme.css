@@ -230,3 +230,16 @@ tinyMCE .error{
 	color:#cc0000;
 	text-decoration:underline;
 }
+
+.rich-panel-body{
+
+	position:relative
+		
+}
+.listaErrores{
+	position:absolute; 
+	width:20%; 
+	right:0; 
+	top:0;
+	margin:1em;
+}

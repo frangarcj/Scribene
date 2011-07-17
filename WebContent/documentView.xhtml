@@ -9,7 +9,9 @@
 	xmlns:a="http://richfaces.org/a4j" template="layout/template.xhtml">
 
 	<ui:define name="body">
+	<s:remote include="documentoHome"></s:remote>
 		<script type="text/javascript">
+		 //<![CDATA[
 		if(!window.Kolich){
 			Kolich = {};
 			}
@@ -107,11 +109,40 @@
   	  	}
 
   	  	function cambiarTexto(){
-  	  		var seleccion = tinyMCE.activeEditor.selection.getContent({format : 'text'});
-  	  		tinyMCE.activeEditor.selection.setContent("&lt;em style='color:#cc0000; text-decoration:underline;' id='error1'&gt;"+seleccion+"&lt;/em&gt;");
-  	  		Richfaces.hideModalPanel('pnl');
+  	  	var seleccion = tinyMCE.activeEditor.selection.getContent({format : 'text'});
+	  		tinyMCE.activeEditor.selection.setContent("&lt;em style='color:#cc0000; text-decoration:underline;' id='error1'&gt;"+seleccion+"&lt;/em&gt;");
+	  		Richfaces.hideModalPanel('pnl');
   	  	}
-  		
+
+
+  	  	
+  	  	
+  		function restoreBookmark(){
+  			
+            Seam.Remoting.getContext().setConversationId(#{conversation.id});
+  	  		
+            var documento = Seam.Component.getInstance("documentoHome");
+  		    documento.getErrores(function(errores){
+
+  		    		for(var i = 0;i < errores.length; i++)
+  	  		    		{
+
+  		    			var bm = {start : errores[i].inicio, end: errores[i].fin};
+  		    			tinyMCE.activeEditor.selection.moveToBookmark(bm);
+  		    			var seleccion = tinyMCE.activeEditor.selection.getContent({format : 'text'});
+  		    	  		tinyMCE.activeEditor.selection.setContent("<em style='color:#cc0000; text-decoration:underline;' id='error"+errores[i].id+"'>"+seleccion+"</em>");
+ 
+  	  		    		}
+  	  		    
+  	  		    });
+	  		
+  	  		
+  	  	}
+
+  	   // ]]>
+  	  	
+
+
   </script>
 
 		<rich:panel>
@@ -131,19 +162,25 @@
 					<div style="clear: both" />
 
 				</rich:panel>
-
+				<rich:panel>
+				<f:facet name="header">Contenido del documento</f:facet>
 				<rich:editor id="documentTextArea" value="#{documentView.documento}"
-					readonly="true" />
-				<h:selectManyListbox style="width:100%">
+					readonly="true" oninit="restoreBookmark()"/>
+				<h:selectManyListbox styleClass="listaErrores" >
 					<s:selectItems value="#{documentoHome.errores}" var="_error"
-						label="#{_error.error}:#{_error.inicio}-#{_error.fin}"></s:selectItems>
+						label="#{_error.error}:#{_error.inicio}-#{_error.fin}" >
+					</s:selectItems>
 					<s:convertEntity></s:convertEntity>
 				</h:selectManyListbox>
+				<div style="clear:both" />
+				</rich:panel>
+				
 				<h:commandButton id="documentView" value="documentView!"
 					action="#{documentView.documentView}" />
 
 				<a:commandButton action="#{errorHome.create}" value="Weee"
 					oncomplete="seleccionarTexto()" />
+				<a href="#" onclick="restoreBookmark()" >we</a>
 
 			</h:form>
 
