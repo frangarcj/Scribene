@@ -57,6 +57,13 @@
                                rows="3"
                               value="#{dudaHome.instance.fuente}"/>
             </s:decorate>
+            <s:decorate id="categoriaField" template="layout/edit.xhtml">
+                <ui:define name="label">Categoria</ui:define>
+                <rich:comboBox id="fuente"
+                    		  suggestionValues="#{dudaHome.categorias}"
+                              value="#{categoriaHome.instance.descripcion}">
+                              </rich:comboBox>
+            </s:decorate>
 
 
             <div style="clear:both">
