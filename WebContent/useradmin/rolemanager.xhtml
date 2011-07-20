@@ -13,45 +13,47 @@
         <script type="text/javascript">
 function confirmDelete()
 {
-    return confirm("Are you sure you wish to delete this role? This action cannot be undone.");
+    return confirm("¿Realmente quieres eliminar este rol? Esta acción no puede deshacerse.");
 }
         </script>
     </ui:define>
 
     <ui:define name="body">
 
-        <h1>Role Manager</h1>
+        <h1>Gestión de Roles</h1>
 
-        <s:button id="newRole" action="#{roleAction.createRole}" styleClass="newrole" rendered="#{s:hasPermission('seam.role', 'create', null)}"/>
+        <s:button id="newRole" action="#{roleAction.createRole}" value="Crear Rol" rendered="#{s:hasPermission('seam.role', 'create', null)}"/>
 
         <h:form id="rolesCmdForm" prependId="false">
             <rich:dataTable id="roles" var="_role" value="#{roles}"
-                styleClass="useradmin" headerClass="header" rowClasses="odd,even" columnClasses=",,action">
+                styleClass="useradmin" headerClass="header" rowClasses="odd,even" columnClasses=",action">
                 <h:column id="role">
-                    <f:facet name="header">Role</f:facet>
+                    <f:facet name="header">Rol</f:facet>
                     #{_role}
                 </h:column>
+                <ui:remove>
                 <h:column id="groups">
                     <f:facet name="header">Member of groups</f:facet>
                     #{roleSearch.getRoleGroups(_role)}
                 </h:column>
+                </ui:remove>
                 <h:column id="action">
-                    <f:facet name="header">Action</f:facet>
+                    <f:facet name="header">Acciones</f:facet>
                     <ui:remove>
                         <!-- There is incompatibility between RichFaces 3.3.0.GA and the version of JSF that ships with JBoss AS 4.2 and GlassFish V2 that
                              prevents UICommand components in a RichFaces dataTable from firing on the first attempt. If you have upgraded to JSF >= 1.2_12
                              you can use the h:commandLink components instead of the s:link compoennts
                         -->
                         <s:fragment rendered="#{s:hasPermission('seam.role', 'update')}">
-                            <h:commandLink id="edit" value="Edit" action="#{roleAction.editRole(roleSearch.selectedRole)}"/><span> | </span>
+                            <h:commandLink id="edit" value="Editar" action="#{roleAction.editRole(roleSearch.selectedRole)}"/><span> | </span>
                         </s:fragment>
-                        <h:commandLink id="delete" value="Delete" action="#{identityManager.deleteRole(roleSearch.selectedRole)}"
+                        <h:commandLink id="delete" value="Borrar" action="#{identityManager.deleteRole(roleSearch.selectedRole)}"
                             rendered="#{s:hasPermission('seam.role', 'delete')}" onclick="return confirmDelete()"/>
                     </ui:remove>
                     <s:fragment rendered="#{s:hasPermission('seam.role', 'update')}">
-                        <s:link id="edit" value="Edit" action="#{roleAction.editRole(roleSearch.selectedRole)}"/><span> | </span>
+                        <s:link id="edit" value="Editar" action="#{roleAction.editRole(roleSearch.selectedRole)}"/><span> | </span>
                     </s:fragment>
-                    <s:link id="delete" value="Delete" action="#{identityManager.deleteRole(roleSearch.selectedRole)}"
+                    <s:link id="delete" value="Borrar" action="#{identityManager.deleteRole(roleSearch.selectedRole)}"
                         rendered="#{s:hasPermission('seam.role', 'delete')}" onclick="return confirmDelete()"/>
                 </h:column>
             </rich:dataTable>

@@ -1,24 +1,44 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:s="http://jboss.com/products/seam/taglib"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:rich="http://richfaces.org/rich"
-    template="layout/template.xhtml">
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
 
-    <ui:define name="body">
+	<ui:define name="body">
 
-        <h1>Bienvenido a Scribene</h1>
-        <rich:panel>
-            <h:panelGrid columns="2">
-                <h:graphicImage value="/img/seamlogo.png" alt="Seam logo"/>
-                <s:div styleClass="info">
-                    <p>Esta aplicación bla bla y bla</p>
-                </s:div>
-            </h:panelGrid>
-        </rich:panel>
+		<h1>Bienvenido a Scribene - Aplicación de corrección ortográfica y estilística</h1>
+		<rich:panel>
+			<h:panelGrid columns="2">
+				<h:graphicImage value="/img/seamlogo.png" alt="Scribene logo" />
+				<s:div styleClass="info">
+					<p>La presente propuesta surge de la necesidad perentoria de
+						reintroducir en la enseñanza española el respeto de las
+						convenciones ortográficas y el prurito de la propiedad expresiva.
+						El profesorado de la actual titulación de Filología Hispánica de
+						la Universidad de Almería viene constatando desde hace años, como
+						tantos otros profesionales, una marcada tendencia negativa en este
+						terreno, que se plasma no solo en los exámenes escritos, donde una
+						mala planificación del tiempo puede privar a los estudiantes de la
+						necesaria revisión final del ejercicio, sino incluso –lo cual es
+						más grave– en los trabajos que preparan, sin presión alguna, en su
+						tiempo de trabajo autónomo. Los profesores nos vemos obligados a
+						corregir una y otra vez los mismos errores de expresión a los
+						mismos alumnos.</p>
+					<p>A nuestro juicio, las TIC procuran el instrumento idóneo
+						para facilitar al profesorado la evaluación de una competencia tan
+						crucial como el dominio de la expresión escrita. Con todo, hay
+						algo que debe quedar claro desde el principio: ScriBene puede
+						ayudar al alumnado a mejorar su ortografía y su estilo, pero su
+						manejo requiere un profesorado dotado de los conocimientos
+						precisos para evaluar la competencia. Dicho de otro modo, un
+						instrumento poderoso como este no sirve para nada en manos de una
+						persona incapaz.</p>
+				</s:div>
+			</h:panelGrid>
+		</rich:panel>
 
-    </ui:define>
+	</ui:define>
 </ui:composition>

@@ -6,21 +6,31 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:rich="http://richfaces.org/rich"
-    template="layout/template.xhtml">
+    template="layout/template.xhtml"
+    xmlns:a="http://richfaces.org/a4j">                
 
 <ui:define name="body">
 
     <rich:panel>
-        <f:facet name="header">Duda Details</f:facet>
+        <f:facet name="header">Detalles de la duda</f:facet>
 
+        <s:decorate id="nombre" template="layout/display.xhtml">
+            <ui:define name="label">Nombre</ui:define>
+            <h:outputText value="#{dudaHome.instance.nombre}"/>
+        </s:decorate> 
 
         <s:decorate id="descripcion" template="layout/display.xhtml">
-            <ui:define name="label">Descripcion</ui:define>
+            <ui:define name="label">Descripción</ui:define>
             <h:outputText value="#{dudaHome.instance.descripcion}"/>
         </s:decorate>
 
+        <s:decorate id="ejemploBuenUso" template="layout/display.xhtml">
+            <ui:define name="label">Ejemplo de buen uso</ui:define>
+            <h:outputText value="#{dudaHome.instance.ejemploBuenUso}"/>
+        </s:decorate>
+        
         <s:decorate id="ejemploMalUso" template="layout/display.xhtml">
-            <ui:define name="label">Ejemplo uso</ui:define>
+            <ui:define name="label">Ejemplo de mal uso</ui:define>
             <h:outputText value="#{dudaHome.instance.ejemploMalUso}"/>
         </s:decorate>
 
@@ -28,7 +38,19 @@
             <ui:define name="label">Fuente</ui:define>
             <h:outputText value="#{dudaHome.instance.fuente}"/>
         </s:decorate>
-
+        <s:decorate id="categoria" template="layout/display.xhtml">
+            <ui:define name="label">Categoría</ui:define>
+            <h:outputText value="#{dudaHome.instance.categoria.descripcion}"/>
+        </s:decorate>
+		<s:decorate id="patrones" template="layout/display.xhtml" >
+            <ui:define name="label">Patrones de error</ui:define>
+            <s:span rendered="#{empty dudaHome.patronesError}">--</s:span>
+            <a:repeat value="#{dudaHome.patronesError}" var="_patronError">
+            <h:outputText value="#{_patronError.patron}"/>
+            </a:repeat>
+            
+        </s:decorate>
+        
         <div style="clear:both"/>
 
     </rich:panel>
@@ -37,95 +59,15 @@
 
         <s:button view="/DudaEdit.xhtml"
                     id="edit"
-                 value="Edit"/>
+                 value="Editar"/>
 
         <s:button view="/#{empty dudaFrom ? 'DudaList' : dudaFrom}.xhtml"
                     id="done"
-                 value="Done"/>
+                 value="Hecho"/>
 
     </div>
 
-    <rich:tabPanel switchType="ajax">
 
-    <rich:tab>
-        <f:facet name="label">
-            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Categoria</h:panelGroup>
-        </f:facet>
-    <div class="association" id="categoriaParent">
-
-        <h:outputText value="There is no categoria associated with this duda."
-                   rendered="#{dudaHome.instance.categoria == null}"/>
-
-        <rich:dataTable var="_categoria"
-                   value="#{dudaHome.instance.categoria}"
-                rendered="#{dudaHome.instance.categoria != null}"
-              rowClasses="rvgRowOne,rvgRowTwo"
-                      id="categoriaTable">
-            <h:column>
-                <f:facet name="header">Id</f:facet>
-                <h:outputText value="#{_categoria.id}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Descripcion</f:facet>
-                <h:outputText value="#{_categoria.descripcion}"/>
-            </h:column>
-            <h:column styleClass="action">
-                <f:facet name="header">Action</f:facet>
-                <s:link id="viewcategoria"
-                     value="View"
-                      view="/Categoria.xhtml">
-                    <f:param name="categoriaId"
-                           value="#{_categoria.id}"/>
-                </s:link>
-            </h:column>
-        </rich:dataTable>
-
-    </div>
-    </rich:tab>
-
-    <rich:tab>
-        <f:facet name="label">
-            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Patrones error</h:panelGroup>
-        </f:facet>
-    <h:form styleClass="association" id="patronesErrorChildren">
-
-        <h:outputText value="There are no patronesError associated with this duda."
-                   rendered="#{empty dudaHome.patronesError}"/>
-
-        <rich:dataTable value="#{dudaHome.patronesError}"
-                       var="_patronError"
-                  rendered="#{not empty dudaHome.patronesError}"
-                rowClasses="rvgRowOne,rvgRowTwo"
-                        id="patronesErrorTable">
-            <rich:column sortBy="#{_patronError.patron}">
-                <f:facet name="header">Patron</f:facet>
-                <h:outputText value="#{_patronError.patron}"/>
-            </rich:column>
-            <h:column>
-                <f:facet name="header">Action</f:facet>
-                <s:link id="selectpatronError"
-                     value="Select"
-                      view="/PatronError.xhtml">
-                    <f:param name="patronErrorPatron"
-                            value="#{_patronError.patron}"/>
-                    <f:param name="patronErrorFrom" value="Duda"/>
-                </s:link>
-            </h:column>
-        </rich:dataTable>
-
-    </h:form>
-
-    <div class="actionButtons">
-        <s:button
-               value="Add patronError"
-                view="/PatronErrorEdit.xhtml">
-            <f:param name="dudaId"
-                    value="#{dudaHome.instance.id}"/>
-            <f:param name="patronErrorFrom" value="Duda"/>
-        </s:button>
-    </div>
-    </rich:tab>
-</rich:tabPanel>
 </ui:define>
 
 </ui:composition>

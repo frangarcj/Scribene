@@ -236,6 +236,10 @@ tinyMCE .error{
 	position:relative
 		
 }
+
+.rich-panel-body td{
+	padding:0.5em;
+}
 .listaErrores{
 	position:absolute; 
 	width:20%; 

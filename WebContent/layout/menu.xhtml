@@ -7,25 +7,32 @@
     xmlns:rich="http://richfaces.org/rich">
     <rich:toolBarGroup>
         <h:outputText value="#{projectName}:"/>
-        <s:link id="menuHomeId" view="/home.xhtml" value="Home" propagation="none"/>
+        <s:link id="menuHomeId" view="/home.xhtml" value="Inicio" propagation="none"/>
     </rich:toolBarGroup>
     <rich:dropDownMenu showDelay="250" hideDelay="0" submitMode="none">
-        <f:facet name="label">Browse data</f:facet>
-	<rich:menuItem>
+        <f:facet name="label">Base de Datos</f:facet>
+	<rich:menuItem rendered="false">
     	<s:link view="/PatronErrorList.xhtml"
            	value="PatronError List"
            	id="PatronErrorId"
 			includePageParams="false"
      		propagation="none"/>
      </rich:menuItem>
-	<rich:menuItem>
-    	<s:link view="/DudaList.xhtml"
-           	value="Duda List"
-           	id="DudaId"
+     	<rich:menuItem>
+    	<s:link view="/CategoriaList.xhtml"
+           	value="Categorias"
+           	id="CategoriaId"
 			includePageParams="false"
      		propagation="none"/>
      </rich:menuItem>
 	<rich:menuItem>
+    	<s:link view="/DudaList.xhtml"
+           	value="Dudas"
+           	id="DudaId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem rendered="false">
     	<s:link view="/ErrorList.xhtml"
            	value="Error List"
            	id="ErrorId"
@@ -33,24 +40,23 @@
      		propagation="none"/>
      </rich:menuItem>
 	<rich:menuItem>
-    	<s:link view="/CategoriaList.xhtml"
-           	value="Categoria List"
-           	id="CategoriaId"
-			includePageParams="false"
-     		propagation="none"/>
-     </rich:menuItem>
-	<rich:menuItem>
     	<s:link view="/DocumentoList.xhtml"
-           	value="Documento List"
+           	value="Documentos"
            	id="DocumentoId"
 			includePageParams="false"
      		propagation="none"/>
      </rich:menuItem>
     </rich:dropDownMenu>
+    	<s:link view="/useradmin/home.xhtml"
+           	value="Administración de usuarios"
+           	id="UsuerId"
+			includePageParams="false"
+     		propagation="none"
+     		rendered="#{s:hasRole('admin')}"/>
     <!-- @newMenuItem@ -->
     <rich:toolBarGroup location="right">
-        <h:outputText id="menuWelcomeId" value="signed in as: #{credentials.username}" rendered="#{identity.loggedIn}"/>
-        <s:link id="menuLoginId" view="/login.xhtml" value="Login" rendered="#{not identity.loggedIn}" propagation="none"/>
-        <s:link id="menuLogoutId" view="/home.xhtml" action="#{identity.logout}" value="Logout" rendered="#{identity.loggedIn}" propagation="none"/>
+        <h:outputText id="menuWelcomeId" value="Conectado como: #{credentials.username}" rendered="#{identity.loggedIn}"/>
+        <s:link id="menuLoginId" view="/login.xhtml" value="Entrar" rendered="#{not identity.loggedIn}" propagation="none"/>
+        <s:link id="menuLogoutId" view="/home.xhtml" action="#{identity.logout}" value="Salir" rendered="#{identity.loggedIn}" propagation="none"/>
     </rich:toolBarGroup>
 </rich:toolBar>

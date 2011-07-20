@@ -14,40 +14,40 @@
 
     <ui:define name="body">
 
-        <h1>User Details</h1>
+        <h1>Detalles del Usuario</h1>
 
         <h:form id="userForm">
 
             <rich:panel styleClass="useradmin">
                 <ui:remove>
                 <s:decorate id="firstnameField" template="/layout/edit.xhtml">
-                    <ui:define name="label">First name</ui:define>
+                    <ui:define name="label">Nombre</ui:define>
                     <h:inputText id="firstname" value="#{userAction.firstname}"/>
                 </s:decorate>
 
                 <s:decorate id="lastnameField" template="/layout/edit.xhtml">
-                    <ui:define name="label">Last name</ui:define>
+                    <ui:define name="label">Apellidos</ui:define>
                     <h:inputText id="lastname" value="#{userAction.lastname}"/>
                 </s:decorate>
                 </ui:remove>
 
                 <s:decorate id="usernameField" template="/layout/edit.xhtml">
-                    <ui:define name="label">Username</ui:define>
+                    <ui:define name="label">Nombre de usuario</ui:define>
                     <h:inputText id="username" value="#{userAction.username}" readonly="#{identityManager.userExists(userAction.username)}"/>
                 </s:decorate>
 
                 <s:decorate id="passwordField" template="/layout/edit.xhtml">
-                    <ui:define name="label">Password</ui:define>
+                    <ui:define name="label">Contraseña</ui:define>
                     <h:inputSecret id="password" value="#{userAction.password}"/>
                 </s:decorate>
 
                 <s:decorate id="confirmField" template="/layout/edit.xhtml">
-                    <ui:define name="label">Confirm password</ui:define>
+                    <ui:define name="label">Repetir contraseña</ui:define>
                     <h:inputSecret id="confirm" value="#{userAction.confirm}"/>
                 </s:decorate>
 
                 <s:decorate id="rolesField" template="/layout/edit.xhtml">
-                    <ui:define name="label">Member of roles</ui:define>
+                    <ui:define name="label">Roles</ui:define>
                     <div class="selectMany">
                         <h:selectManyCheckbox id="roles" value="#{userAction.roles}" layout="pageDirection" styleClass="roles">
                             <s:selectItems value="#{identityManager.listGrantableRoles()}" var="_role" label="#{_role}"/>
@@ -56,7 +56,7 @@
                 </s:decorate>
 
                 <s:decorate id="enabledField" template="/layout/edit.xhtml">
-                    <ui:define name="label">Account enabled</ui:define>
+                    <ui:define name="label">Activo</ui:define>
                     <h:selectBooleanCheckbox id="enabled" value="#{userAction.enabled}"/>
                 </s:decorate>
 
@@ -65,8 +65,8 @@
             </rich:panel>
 
             <div class="actionButtons">
-                <h:commandButton id="save" value="Save" action="#{userAction.save}"/>
-                <s:button id="cancel" view="/useradmin/usermanager.xhtml" value="Cancel" propagation="end"/>
+                <h:commandButton id="save" value="Guardar" action="#{userAction.save}"/>
+                <s:button id="cancel" view="/useradmin/usermanager.xhtml" value="Cancelar" propagation="end"/>
             </div>
 
         </h:form>

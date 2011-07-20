@@ -33,21 +33,17 @@
 
         <div class="actionButtons">
             <h:commandButton id="save"
-                          value="Save"
+                          value="Guardar"
                          action="#{documentoHome.persist}"
                        rendered="#{false}"/>
-            <h:commandButton id="update"
-                          value="Save"
-                         action="#{documentoHome.update}"
-                       rendered="#{documentoHome.managed}"/>
             <h:commandButton id="delete"
-                          value="Delete"
+                          value="Borrar"
                          action="#{documentoHome.remove}"
                       immediate="true"
                        rendered="#{documentoHome.managed}"/>
             <s:button propagation="end"
                                id="cancel"
-                            value="Cancel"
+                            value="Cancelar"
                              view="/DocumentoList.xhtml"/>
         </div>
 

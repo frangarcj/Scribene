@@ -11,11 +11,11 @@
 <ui:define name="body">
 
     <rich:panel>
-        <f:facet name="header">Categoria Details</f:facet>
+        <f:facet name="header">Detalles de la categoría</f:facet>
 
 
         <s:decorate id="descripcion" template="layout/display.xhtml">
-            <ui:define name="label">Descripcion</ui:define>
+            <ui:define name="label">Descripción</ui:define>
             <h:outputText value="#{categoriaHome.instance.descripcion}"/>
         </s:decorate>
 
@@ -27,11 +27,11 @@
 
         <s:button view="/CategoriaEdit.xhtml"
                     id="edit"
-                 value="Edit"/>
+                 value="Editar"/>
 
         <s:button view="/#{empty categoriaFrom ? 'CategoriaList' : categoriaFrom}.xhtml"
                     id="done"
-                 value="Done"/>
+                 value="Hecho"/>
 
     </div>
 
@@ -43,7 +43,7 @@
         </f:facet>
     <h:form styleClass="association" id="dudasChildren">
 
-        <h:outputText value="There are no dudas associated with this categoria."
+        <h:outputText value="No hay dudas asociadas a esta categoría"
                    rendered="#{empty categoriaHome.dudas}"/>
 
         <rich:dataTable value="#{categoriaHome.dudas}"
@@ -55,12 +55,20 @@
                 <f:facet name="header">Id</f:facet>
                 <h:outputText value="#{_duda.id}"/>
             </rich:column>
+            <rich:column sortBy="#{_duda.nombre}">
+                <f:facet name="header">Nombre</f:facet>
+                <h:outputText value="#{_duda.nombre}"/>
+            </rich:column>
             <rich:column sortBy="#{_duda.descripcion}">
-                <f:facet name="header">Descripcion</f:facet>
+                <f:facet name="header">Descripción</f:facet>
                 <h:outputText value="#{_duda.descripcion}"/>
             </rich:column>
             <rich:column sortBy="#{_duda.ejemploMalUso}">
-                <f:facet name="header">Ejemplo uso</f:facet>
+                <f:facet name="header">Ejemplo de Buen Uso</f:facet>
+                <h:outputText value="#{_duda.ejemploMalUso}"/>
+            </rich:column>            
+            <rich:column sortBy="#{_duda.ejemploMalUso}">
+                <f:facet name="header">Ejemplo de Mal Uso</f:facet>
                 <h:outputText value="#{_duda.ejemploMalUso}"/>
             </rich:column>
             <rich:column sortBy="#{_duda.fuente}">
@@ -68,9 +76,9 @@
                 <h:outputText value="#{_duda.fuente}"/>
             </rich:column>
             <h:column>
-                <f:facet name="header">Action</f:facet>
+                <f:facet name="header">Acciones</f:facet>
                 <s:link id="selectduda"
-                     value="Select"
+                     value="Ver"
                       view="/Duda.xhtml">
                     <f:param name="dudaId"
                             value="#{_duda.id}"/>
@@ -80,7 +88,7 @@
         </rich:dataTable>
 
     </h:form>
-
+	<ui:remove>
     <div class="actionButtons">
         <s:button
                value="Add duda"
@@ -90,6 +98,7 @@
             <f:param name="dudaFrom" value="Categoria"/>
         </s:button>
     </div>
+    </ui:remove>
     </rich:tab>
 </rich:tabPanel>
 </ui:define>

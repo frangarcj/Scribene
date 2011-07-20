@@ -64,6 +64,11 @@
                               value="#{categoriaHome.instance.descripcion}">
                               </rich:comboBox>
             </s:decorate>
+            <s:decorate id="patronesErrorField" template="layout/edit.xhtml">
+                <ui:define name="label">Patrones de error</ui:define>
+                <h:inputText id="patronesError"
+                              value="#{dudaHome.cadenaPatrones}"/>
+            </s:decorate>
 
 
             <div style="clear:both">

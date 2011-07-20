@@ -14,16 +14,16 @@
 
     <ui:define name="body">
 
-        <h1>Role Details</h1>
+        <h1>Detalles del Rol</h1>
  
         <h:form id="roleForm">
 
           <rich:panel>
               <s:decorate id="roleField" template="/layout/edit.xhtml">
-                <ui:define name="label">Role</ui:define>
+                <ui:define name="label">Rol</ui:define>
                 <h:inputText id="role" value="#{roleAction.role}" readonly="#{identityManager.userExists(roleAction.role)}"/>
               </s:decorate>
-
+			  <ui:remove>
               <s:decorate id="groupsField" template="/layout/edit.xhtml">
                   <ui:define name="label">Member of groups</ui:define>
                   <div class="selectMany">
@@ -32,14 +32,14 @@
                       </h:selectManyCheckbox>
                   </div>
               </s:decorate>
-
+			  </ui:remove>
               <div style="clear: both;"/>
 
           </rich:panel>
 
           <div class="actionButtons">
-              <h:commandButton id="save" value="Save" action="#{roleAction.save}"/>
-              <s:button id="cancel" view="/useradmin/rolemanager.xhtml" value="Cancel" propagation="end"/>
+              <h:commandButton id="save" value="Guardar" action="#{roleAction.save}"/>
+              <s:button id="cancel" view="/useradmin/rolemanager.xhtml" value="Cancelar" propagation="end"/>
           </div>
 
         </h:form>
