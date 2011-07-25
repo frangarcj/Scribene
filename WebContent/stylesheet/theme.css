@@ -220,7 +220,7 @@ table.radio input[type=radio] {
 
 textarea {
 	width:75%;	
-	height:5em;
+	height:35em;
 	padding:1em;
 	margin:1% auto 1% auto;
 	
@@ -247,3 +247,4 @@ tinyMCE .error{
 	top:0;
 	margin:1em;
 }
+

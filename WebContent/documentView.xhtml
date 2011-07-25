@@ -9,7 +9,7 @@
 	xmlns:a="http://richfaces.org/a4j" template="layout/template.xhtml">
 
 	<ui:define name="body">
-	<s:remote include="documentoHome"></s:remote>
+		<s:remote include="documentoHome"></s:remote>
 		<script type="text/javascript">
 		 //<![CDATA[
 		if(!window.Kolich){
@@ -109,8 +109,8 @@
   	  	}
 
   	  	function cambiarTexto(){
-  	  	var seleccion = tinyMCE.activeEditor.selection.getContent({format : 'text'});
-	  		tinyMCE.activeEditor.selection.setContent("&lt;em style='color:#cc0000; text-decoration:underline;' id='error1'&gt;"+seleccion+"&lt;/em&gt;");
+  	  		var seleccion = tinyMCE.activeEditor.selection.getContent({format : 'text'});
+	  		tinyMCE.activeEditor.selection.setContent("<em style='color:#cc0000; text-decoration:underline;' id='error"+#{rich:element('errorFin')}.value+"'>"+seleccion+"</em>");
 	  		Richfaces.hideModalPanel('pnl');
   	  	}
 
@@ -135,9 +135,63 @@
   	  		    		}
   	  		    
   	  		    });
-	  		
-  	  		
+
+  		}
+  		function tinysetup(){
+  		  tinymce.create('tinymce.plugins.ExamplePlugin', {
+		        createControl: function(n, cm) {
+		                switch (n) {
+		                        case 'mymenubutton':
+		                                var c = cm.createMenuButton('mymenubutton', {
+		                                        title : 'My menu button',
+		                                        image : 'img/example.gif',
+		                                        icons : false
+		                                });
+
+		                                c.onRenderMenu.add(function(c, m) {
+		                                        var sub;
+
+		                                        m.add({title : 'Some item 1', onclick : function() {
+		                                                tinyMCE.activeEditor.execCommand('mceInsertContent', false, 'Some item 1');
+		                                        }});
+
+		                                        m.add({title : 'Some item 2', onclick : function() {
+		                                                tinyMCE.activeEditor.execCommand('mceInsertContent', false, 'Some item 2');
+		                                        }});
+
+		                                        sub = m.addMenu({title : 'Some item 3'});
+
+		                                        sub.add({title : 'Some item 3.1', onclick : function() {
+		                                                tinyMCE.activeEditor.execCommand('mceInsertContent', false, 'Some item 3.1');
+		                                        }});
+
+		                                        sub.add({title : 'Some item 3.2', onclick : function() {
+		                                                tinyMCE.activeEditor.execCommand('mceInsertContent', false, 'Some item 3.2');
+		                                        }});
+		                                });
+
+		                                // Return the new menu button instance
+		                                return c;
+		                }
+
+		                return null;
+		        }
+		});
+  		tinymce.PluginManager.add('example', tinymce.plugins.ExamplePlugin);  	  		
   	  	}
+
+  		function we(){
+  	  		alert("we");
+  	  		tinyMCE.activeEditor.addButton('example', {
+  	         title : 'weeeeee',
+  	         onclick : function() {
+  	            ed.windowManager.alert('Hello world!! Selection: ' + ed.selection.getContent({format : 'text'}));
+  	         }
+  	      });
+  		}
+
+  	// Creates a new plugin class and a custom listbox
+  		
 
   	   // ]]>
   	  	
@@ -163,24 +217,38 @@
 
 				</rich:panel>
 				<rich:panel>
-				<f:facet name="header">Contenido del documento</f:facet>
-				<rich:editor id="documentTextArea" value="#{documentView.documento}"
-					readonly="true" oninit="restoreBookmark()"/>
-				<h:selectManyListbox styleClass="listaErrores" >
-					<s:selectItems value="#{documentoHome.errores}" var="_error"
-						label="#{_error.error}:#{_error.inicio}-#{_error.fin}" >
-					</s:selectItems>
-					<s:convertEntity></s:convertEntity>
-				</h:selectManyListbox>
-				<div style="clear:both" />
+					<f:facet name="header">Contenido del documento</f:facet>
+
+					<rich:editor id="documentTextArea"
+						value="#{documentView.documento}" oninit="restoreBookmark()"
+						 theme="advanced" plugins="save,paste,example" onsetup="tinysetup()" >						
+						<f:param name="theme_advanced_buttons1"
+							value="mymenubutton,bold,italic,underline, cut,copy,paste" />
+
+          <f:param name="theme_advanced_toolbar_location" value="top"/>                               
+
+          <f:param name="theme_advanced_toolbar_align" value="left"/>
+						
+					</rich:editor>
+
+
+
+
+					<h:selectManyListbox id="listaErrores" styleClass="listaErrores">
+						<s:selectItems value="#{documentoHome.errores}" var="_error"
+							label="#{_error.error}:#{_error.inicio}-#{_error.fin}">
+						</s:selectItems>
+						<s:convertEntity></s:convertEntity>
+					</h:selectManyListbox>
+					<div style="clear: both" />
 				</rich:panel>
-				
+
 				<h:commandButton id="documentView" value="documentView!"
 					action="#{documentView.documentView}" />
 
 				<a:commandButton action="#{errorHome.create}" value="Weee"
 					oncomplete="seleccionarTexto()" />
-				<a href="#" onclick="restoreBookmark()" >we</a>
+				<a href="#" onclick="we()">we</a>
 
 			</h:form>
 
@@ -207,8 +275,7 @@
 				</s:decorate>
 				<s:decorate template="/layout/edit.xhtml">
 					<ui:define name="label">Error</ui:define>
-					<h:inputText id="errorText" value="#{errorHome.instance.error}"
-						 />
+					<h:inputText id="errorText" value="#{errorHome.instance.error}" />
 				</s:decorate>
 				<h:inputHidden id="errorInicio" value="#{errorHome.instance.inicio}" />
 				<h:inputHidden id="errorFin" value="#{errorHome.instance.fin}" />
@@ -217,7 +284,8 @@
 
 					<a:commandButton id="save" value="Save"
 						action="#{errorHome.persist}" rendered="#{!errorHome.managed}"
-						oncomplete="if (#{facesContext.maximumSeverity==null}||!#{facesContext.maximumSeverity.ordinal==2}) cambiarTexto();" />
+						oncomplete="if (#{facesContext.maximumSeverity==null}||!#{facesContext.maximumSeverity.ordinal==2}) cambiarTexto();"
+						reRender="pnl, ultimoError, listaErrores" />
 					<h:commandButton id="update" value="Save"
 						action="#{errorHome.update}" rendered="#{errorHome.managed}" />
 					<h:commandButton id="delete" value="Delete"
@@ -229,7 +297,7 @@
 			</a:form>
 
 		</rich:modalPanel>
-
+		<h:inputHidden id="ultimoError" value="#{errorHome.instance.id}" />
 	</ui:define>
 
 </ui:composition>
