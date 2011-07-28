@@ -24,14 +24,14 @@
             <h:outputText value="#{dudaHome.instance.descripcion}"/>
         </s:decorate>
 
-        <s:decorate id="ejemploBuenUso" template="layout/display.xhtml">
-            <ui:define name="label">Ejemplo de buen uso</ui:define>
-            <h:outputText value="#{dudaHome.instance.ejemploBuenUso}"/>
-        </s:decorate>
-        
         <s:decorate id="ejemploMalUso" template="layout/display.xhtml">
             <ui:define name="label">Ejemplo de mal uso</ui:define>
             <h:outputText value="#{dudaHome.instance.ejemploMalUso}"/>
+        </s:decorate>
+
+        <s:decorate id="ejemploBuenUso" template="layout/display.xhtml">
+            <ui:define name="label">Ejemplo de buen uso</ui:define>
+            <h:outputText value="#{dudaHome.instance.ejemploBuenUso}"/>
         </s:decorate>
 
         <s:decorate id="fuente" template="layout/display.xhtml">
@@ -42,11 +42,15 @@
             <ui:define name="label">Categoría</ui:define>
             <h:outputText value="#{dudaHome.instance.categoria.descripcion}"/>
         </s:decorate>
-		<s:decorate id="patrones" template="layout/display.xhtml" >
+        <s:decorate id="etiquetas" template="layout/display.xhtml">
+            <ui:define name="label">Etiquetas</ui:define>
+            <h:outputText value="#{dudaHome.instance.etiquetas}"/>
+        </s:decorate>
+        <s:decorate id="patrones" template="layout/display.xhtml" >
             <ui:define name="label">Patrones de error</ui:define>
             <s:span rendered="#{empty dudaHome.patronesError}">--</s:span>
             <a:repeat value="#{dudaHome.patronesError}" var="_patronError">
-            <h:outputText value="#{_patronError.patron}"/>
+            <h:outputText value="#{_patronError.patron} "/>
             </a:repeat>
             
         </s:decorate>

@@ -32,14 +32,7 @@
                                rows="3"
                               value="#{dudaHome.instance.descripcion}"/>
             </s:decorate>
-
-            <s:decorate id="ejemploBuenUsoField" template="layout/edit.xhtml">
-                <ui:define name="label">Ejemplo Buen Uso</ui:define>
-                <h:inputTextarea id="ejemploMalUso"
-                               cols="80"
-                               rows="3"
-                              value="#{dudaHome.instance.ejemploBuenUso}"/>
-            </s:decorate>
+>
 
             <s:decorate id="ejemploMalUsoField" template="layout/edit.xhtml">
                 <ui:define name="label">Ejemplo Mal Uso</ui:define>
@@ -49,6 +42,13 @@
                               value="#{dudaHome.instance.ejemploMalUso}"/>
             </s:decorate>
 
+            <s:decorate id="ejemploBuenUsoField" template="layout/edit.xhtml">
+                <ui:define name="label">Ejemplo Buen Uso</ui:define>
+                <h:inputTextarea id="ejemploMalUso"
+                               cols="80"
+                               rows="3"
+                              value="#{dudaHome.instance.ejemploBuenUso}"/>
+            </s:decorate>
 
             <s:decorate id="fuenteField" template="layout/edit.xhtml">
                 <ui:define name="label">Fuente</ui:define>
@@ -58,11 +58,16 @@
                               value="#{dudaHome.instance.fuente}"/>
             </s:decorate>
             <s:decorate id="categoriaField" template="layout/edit.xhtml">
-                <ui:define name="label">Categoria</ui:define>
+                <ui:define name="label">Categoría</ui:define>
                 <rich:comboBox id="fuente"
                     		  suggestionValues="#{dudaHome.categorias}"
                               value="#{categoriaHome.instance.descripcion}">
                               </rich:comboBox>
+            </s:decorate>
+            <s:decorate id="etiquetasField" template="layout/edit.xhtml">
+                <ui:define name="label">Etiquetas</ui:define>
+                <h:inputText id="etiquetas"
+                              value="#{dudaHome.instance.etiquetas}"/>
             </s:decorate>
             <s:decorate id="patronesErrorField" template="layout/edit.xhtml">
                 <ui:define name="label">Patrones de error</ui:define>
@@ -73,7 +78,7 @@
 
             <div style="clear:both">
                 <span class="required">*</span>
-                required fields
+                Campos requeridos
             </div>
 
         </rich:panel>
@@ -81,37 +86,37 @@
         <div class="actionButtons">
 
             <h:commandButton id="save"
-                          value="Save"
+                          value="Guardar"
                          action="#{dudaHome.persist}"
                        disabled="#{!dudaHome.wired}"
                        rendered="#{!dudaHome.managed}"/>
 
             <h:commandButton id="update"
-                          value="Save"
+                          value="Guardar"
                          action="#{dudaHome.update}"
                        rendered="#{dudaHome.managed}"/>
 
             <h:commandButton id="delete"
-                          value="Delete"
+                          value="Borrar"
                          action="#{dudaHome.remove}"
                       immediate="true"
                        rendered="#{dudaHome.managed}"/>
 
             <s:button id="cancelEdit"
-                   value="Cancel"
+                   value="Cancelar"
              propagation="end"
                     view="/Duda.xhtml"
                 rendered="#{dudaHome.managed}"/>
 
             <s:button id="cancelAdd"
-                   value="Cancel"
+                   value="Cancelar"
              propagation="end"
                     view="/#{empty dudaFrom ? 'DudaList' : dudaFrom}.xhtml"
                 rendered="#{!dudaHome.managed}"/>
 
         </div>
     </h:form>
-
+<ui:remove>
 <rich:tabPanel switchType="ajax">
 
     <rich:tab label="Categoria">
@@ -178,6 +183,7 @@
         </f:subview>
     </rich:tab>
 </rich:tabPanel>
+</ui:remove>
 </ui:define>
 
 </ui:composition>

@@ -10,8 +10,8 @@
 
 <ui:define name="body">
 
-    <h:form id="dudaSearch" styleClass="edit">
-
+    <h:form id="dudaSearch" styleClass="edit"> 
+ 
         <rich:simpleTogglePanel label="Filtro de búsqueda de dudas" switchType="ajax">
             <s:decorate template="layout/display.xhtml">
                 <ui:define name="label">Nombre</ui:define>
@@ -22,13 +22,19 @@
                 <h:inputText id="descripcion" value="#{dudaList.duda.descripcion}"/>
             </s:decorate>
             <s:decorate template="layout/display.xhtml">
-                <ui:define name="label">Ejemplo de buen uso</ui:define>
-                <h:inputText id="ejemploMalUso" value="#{dudaList.duda.ejemploBuenUso}"/>
-            </s:decorate>
-            <s:decorate template="layout/display.xhtml">
                 <ui:define name="label">Ejemplo de mal uso</ui:define>
                 <h:inputText id="ejemploMalUso" value="#{dudaList.duda.ejemploMalUso}"/>
             </s:decorate>
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Ejemplo de buen uso</ui:define>
+                <h:inputText id="ejemploBuenUso" value="#{dudaList.duda.ejemploBuenUso}"/>
+            </s:decorate>
+
+     		<s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Etiquetas</ui:define>
+                <h:inputText id="etiquetas" value="#{dudaList.duda.etiquetas}"/>
+            </s:decorate>
+
 
             <s:decorate template="layout/display.xhtml">
                 <ui:define name="label">Fuente</ui:define>
@@ -132,6 +138,16 @@
                 </ui:include>
             </f:facet>
             <h:outputText value="#{_duda.categoria.descripcion}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{dudaList}"/>
+                    <ui:param name="propertyLabel" value="Etiquetas"/>
+                    <ui:param name="propertyPath" value="duda.etiquetas"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_duda.etiquetas}"/>
         </h:column>
         <rich:column styleClass="action">
             <f:facet name="header">Acciones</f:facet>

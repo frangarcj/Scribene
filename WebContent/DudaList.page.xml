@@ -10,8 +10,11 @@
    <param name="logic" value="#{dudaList.restrictionLogicOperator}"/>
 
    <param name="from"/>
+   <param name="nombre" value="#{dudaList.duda.nombre}"/>
    <param name="descripcion" value="#{dudaList.duda.descripcion}"/>
    <param name="ejemploMalUso" value="#{dudaList.duda.ejemploMalUso}"/>
+   <param name="ejemploBuenUso" value="#{dudaList.duda.ejemploBuenUso}"/>
+   <param name="etiquetas" value="#{dudaList.duda.etiquetas}"/>
    <param name="fuente" value="#{dudaList.duda.fuente}"/>
 
 </page>
