@@ -40,6 +40,13 @@
                 <ui:define name="label">Fuente</ui:define>
                 <h:inputText id="fuente" value="#{dudaList.duda.fuente}"/>
             </s:decorate>
+            
+             
+      		<s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Categoría</ui:define>
+                <h:inputText id="categoria" value="#{dudaList.duda.categoria.descripcion}"/>
+            </s:decorate>
+            
 
             <s:decorate template="layout/display.xhtml">
                 <ui:define name="label">Coincidir con</ui:define>
@@ -57,7 +64,12 @@
         </div>
 
     </h:form>
-
+<s:button view="/DudaEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="Crear duda">
+            <f:param name="dudaId"/>
+        </s:button>
     <rich:panel>
         <f:facet name="header">Resultados de la búsqueda de dudas (#{empty dudaList.resultList ? 0 : (dudaList.paginated ? dudaList.resultCount : dudaList.resultList.size)})</f:facet>
     <div class="results" id="dudaList">
@@ -93,11 +105,11 @@
             <f:facet name="header">
                 <ui:include src="layout/sort.xhtml">
                     <ui:param name="entityList" value="#{dudaList}"/>
-                    <ui:param name="propertyLabel" value="Descripcion"/>
+                    <ui:param name="propertyLabel" value="Descripción"/>
                     <ui:param name="propertyPath" value="duda.descripcion"/>
                 </ui:include>
             </f:facet>
-            <h:outputText value="#{_duda.descripcion}"/>
+            <h:outputText value="#{_duda.descripcion}" escape="false"/>
         </h:column>
         <h:column>
             <f:facet name="header">
@@ -107,7 +119,7 @@
                     <ui:param name="propertyPath" value="duda.ejemploBuenUso"/>
                 </ui:include>
             </f:facet>
-            <h:outputText value="#{_duda.ejemploBuenUso}"/>
+            <h:outputText value="#{_duda.ejemploBuenUso}" escape="false"/>
         </h:column>
         <h:column>
             <f:facet name="header">
@@ -117,7 +129,7 @@
                     <ui:param name="propertyPath" value="duda.ejemploMalUso"/>
                 </ui:include>
             </f:facet>
-            <h:outputText value="#{_duda.ejemploMalUso}"/>
+            <h:outputText value="#{_duda.ejemploMalUso}" escape="false"/>
         </h:column>
         <h:column>
             <f:facet name="header">
@@ -133,7 +145,7 @@
             <f:facet name="header">
                 <ui:include src="layout/sort.xhtml">
                     <ui:param name="entityList" value="#{dudaList}"/>
-                    <ui:param name="propertyLabel" value="Categoria"/>
+                    <ui:param name="propertyLabel" value="Categoría"/>
                     <ui:param name="propertyPath" value="duda.categoria.descripcion"/>
                 </ui:include>
             </f:facet>
@@ -208,14 +220,6 @@
 
     </div>
 
-    <s:div styleClass="actionButtons" rendered="#{empty from}">
-        <s:button view="/DudaEdit.xhtml"
-                    id="create"
-           propagation="none"
-                 value="Crear duda">
-            <f:param name="dudaId"/>
-        </s:button>
-    </s:div>
 
 </ui:define>
 

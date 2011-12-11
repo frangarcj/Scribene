@@ -218,13 +218,13 @@ table.radio input[type=radio] {
 	vertical-align: bottom;
 }
 
-textarea {
+/*textarea {
 	width:75%;	
 	height:35em;
 	padding:1em;
 	margin:1% auto 1% auto;
 	
-}
+}*/
 
 tinyMCE .error{
 	color:#cc0000;
@@ -248,3 +248,4 @@ tinyMCE .error{
 	margin:1em;
 }
 
+.value .rich-editor textarea{ width:40em; }

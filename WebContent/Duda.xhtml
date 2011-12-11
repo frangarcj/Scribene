@@ -21,17 +21,17 @@
 
         <s:decorate id="descripcion" template="layout/display.xhtml">
             <ui:define name="label">Descripción</ui:define>
-            <h:outputText value="#{dudaHome.instance.descripcion}"/>
+            <h:outputText value="#{dudaHome.instance.descripcion}" escape="false"/>
         </s:decorate>
 
         <s:decorate id="ejemploMalUso" template="layout/display.xhtml">
             <ui:define name="label">Ejemplo de mal uso</ui:define>
-            <h:outputText value="#{dudaHome.instance.ejemploMalUso}"/>
+            <h:outputText value="#{dudaHome.instance.ejemploMalUso}" escape="false"/>
         </s:decorate>
 
         <s:decorate id="ejemploBuenUso" template="layout/display.xhtml">
             <ui:define name="label">Ejemplo de buen uso</ui:define>
-            <h:outputText value="#{dudaHome.instance.ejemploBuenUso}"/>
+            <h:outputText value="#{dudaHome.instance.ejemploBuenUso}" escape="false"/>
         </s:decorate>
 
         <s:decorate id="fuente" template="layout/display.xhtml">

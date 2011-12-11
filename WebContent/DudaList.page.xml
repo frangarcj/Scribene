@@ -4,6 +4,7 @@
       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
       login-required="true">
 
+   <action execute="#{dudaList.setOrderColumn('nombre')}" on-postback="false"/>
    <param name="firstResult" value="#{dudaList.firstResult}"/>
    <param name="sort" value="#{dudaList.orderColumn}"/>
    <param name="dir" value="#{dudaList.orderDirection}"/>
@@ -16,5 +17,6 @@
    <param name="ejemploBuenUso" value="#{dudaList.duda.ejemploBuenUso}"/>
    <param name="etiquetas" value="#{dudaList.duda.etiquetas}"/>
    <param name="fuente" value="#{dudaList.duda.fuente}"/>
+   <param name="categoria" value="#{dudaList.duda.categoria.descripcion}"/>
 
 </page>
